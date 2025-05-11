@@ -1,0 +1,17 @@
+# Exclude pdf folder
+pdf/
+
+# System files
+.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE related
+.vscode/
+.idea/
+
+# Environment related
+.env
+venv/
+env/ 
