@@ -45,21 +45,21 @@ if not os.path.exists("./output"):
 plt.figure(figsize=(10, 6))
 sns.histplot(df["age"], kde=True)
 plt.title("Age Distribution")
-plt.savefig("./output/age_distribution.png")
+plt.savefig("./output/general_analysis/age_distribution.png")
 plt.close()
 
 # Play years distribution
 plt.figure(figsize=(10, 6))
 sns.histplot(df["playYears"], kde=True)
 plt.title("Playing Years Distribution")
-plt.savefig("./output/play_years_distribution.png")
+plt.savefig("./output/general_analysis/play_years_distribution.png")
 plt.close()
 
 # Height and weight relationship
 plt.figure(figsize=(10, 6))
 sns.scatterplot(data=df, x="height", y="weight", hue="gender")
 plt.title("Height vs Weight Relationship")
-plt.savefig("./output/height_weight_relation.png")
+plt.savefig("./output/general_analysis/height_weight_relation.png")
 plt.close()
 
 # Acceleration and gyroscope data mean relationships
@@ -68,7 +68,7 @@ sns.pairplot(
     df[["ax_mean", "ay_mean", "az_mean", "gx_mean", "gy_mean", "gz_mean"]],
     diag_kind="kde",
 )
-plt.savefig("./output/acceleration_gyro_pairplot.png")
+plt.savefig("./output/general_analysis/acceleration_gyro_pairplot.png")
 plt.close()
 
 # Correlation matrix
@@ -91,7 +91,7 @@ plt.figure(figsize=(14, 12))
 corr = df[selected_features].corr()
 sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
 plt.title("Feature Correlation Matrix")
-plt.savefig("./output/correlation_matrix.png")
+plt.savefig("./output/general_analysis/correlation_matrix.png")
 plt.close()
 
 # Analyze categorical features
@@ -119,7 +119,7 @@ plt.title("Test Stage Distribution")
 plt.xlabel("Test Stage")
 plt.ylabel("Count")
 plt.tight_layout()
-plt.savefig("./output/test_mode_stage_distribution.png")
+plt.savefig("./output/general_analysis/test_mode_stage_distribution.png")
 plt.close()
 
 # Analyze gender and handedness relationship
@@ -136,7 +136,7 @@ plt.title("Handedness Distribution")
 plt.xlabel("Handedness (0=Left, 1=Right)")
 plt.ylabel("Count")
 plt.tight_layout()
-plt.savefig("./output/gender_handedness_distribution.png")
+plt.savefig("./output/general_analysis/gender_handedness_distribution.png")
 plt.close()
 
 # Print basic information
