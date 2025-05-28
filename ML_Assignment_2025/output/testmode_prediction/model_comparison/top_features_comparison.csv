@@ -1,0 +1,6 @@
+Random Forest,Logistic Regression,Decision Tree
+g_entropy,a_mean,g_entropy
+a_entropy,gz_var,a_min
+a_min,ax_rms,gz_var
+a_mean,gz_rms,a_entropy
+g_mean,a_min,a_mean

@@ -1,0 +1,84 @@
+=== TTSWING 模型比较总结 ===
+
+== 模型准确率 ==
+Random Forest: 0.9718
+Decision Tree: 0.9635
+Logistic Regression: 0.9309
+
+== 模型预测一致性 ==
+随机森林和决策树一致性: 98.39%
+随机森林和逻辑回归一致性: 94.01%
+决策树和逻辑回归一致性: 93.45%
+所有模型一致: 92.99%
+
+== 关键特征 ==
+随机森林顶级特征:
+  g_entropy: 0.1793
+  a_entropy: 0.1770
+  a_min: 0.1261
+  a_mean: 0.0940
+  g_mean: 0.0675
+
+决策树顶级特征:
+  g_entropy: 0.4291
+  a_min: 0.3403
+  gz_var: 0.0511
+  a_entropy: 0.0472
+  a_mean: 0.0380
+
+逻辑回归顶级特征:
+  a_mean: 2.8572
+  gz_var: 1.6434
+  ax_rms: 1.6123
+  gz_rms: 1.5039
+  a_min: 1.3768
+
+
+=== TTSWING Model Comparison Summary ===
+
+== Model Accuracy ==
+Random Forest: 0.9718
+Decision Tree: 0.9635
+Logistic Regression: 0.9309
+
+== Model Prediction Agreement ==
+Random Forest and Decision Tree agreement: 98.39%
+Random Forest and Logistic Regression agreement: 94.01%
+Decision Tree and Logistic Regression agreement: 93.45%
+All models agree: 92.99%
+
+== Key Features ==
+Random Forest top features:
+  g_entropy: 0.1793
+  a_entropy: 0.1770
+  a_min: 0.1261
+  a_mean: 0.0940
+  g_mean: 0.0675
+
+Decision Tree top features:
+  g_entropy: 0.4291
+  a_min: 0.3403
+  gz_var: 0.0511
+  a_entropy: 0.0472
+  a_mean: 0.0380
+
+Logistic Regression top features:
+  a_mean: 2.8572
+  gz_var: 1.6434
+  ax_rms: 1.6123
+  gz_rms: 1.5039
+  a_min: 1.3768
+
+
+== Conclusion ==
+1. Random Forest performs best with 97.18% accuracy, followed by Decision Tree (96.35%) and Logistic Regression (93.09%).
+2. All models show high agreement, with RF and DT having the highest agreement at 98.39%.
+3. The most important features across models are entropy-based features (g_entropy, a_entropy) and basic statistics (a_min, a_mean).
+4. Models struggle most with test mode 2, as shown in all classification reports.
+
+
+== 结论 ==
+1. 随机森林表现最佳，准确率为97.18%，其次是决策树(96.35%)和逻辑回归(93.09%)。
+2. 所有模型显示高度一致性，随机森林和决策树一致性最高，达98.39%。
+3. 模型中最重要的特征是基于熵的特征(g_entropy, a_entropy)和基本统计量(a_min, a_mean)。
+4. 从所有分类报告来看，模型在测试模式2上的表现最差。
