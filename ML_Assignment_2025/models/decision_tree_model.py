@@ -5,12 +5,36 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.feature_selection import SelectKBest, f_classif
+from scipy import stats
 
+def detect_outliers(df, columns, threshold=3):
+    """
+    Detect outliers using Z-score method
+    
+    Parameters:
+    -----------
+    df : DataFrame
+        Input dataframe
+    columns : list
+        List of columns to check for outliers
+    threshold : float
+        Z-score threshold for outlier detection
+        
+    Returns:
+    --------
+    DataFrame
+        DataFrame with outliers marked
+    """
+    df_outliers = df.copy()
+    for col in columns:
+        z_scores = np.abs(stats.zscore(df[col]))
+        df_outliers[f'{col}_is_outlier'] = z_scores > threshold
+    return df_outliers
 
 def train_decision_tree(X_train, X_test, y_train, y_test, all_features, output_dir):
     """
@@ -38,11 +62,18 @@ def train_decision_tree(X_train, X_test, y_train, y_test, all_features, output_d
     """
     print("\n=== Training Decision Tree ===")
 
-    # Create a pipeline with feature selection, scaling, and classifier
+    # Detect outliers in training data
+    print("\nDetecting outliers in training data...")
+    X_train_outliers = detect_outliers(X_train, all_features)
+    outlier_counts = X_train_outliers[[f'{col}_is_outlier' for col in all_features]].sum()
+    print("\nOutlier counts per feature:")
+    print(outlier_counts)
+
+    # Create a pipeline with feature selection, robust scaling, and classifier
     dt_pipeline = Pipeline(
         [
             ("feature_selection", SelectKBest(f_classif, k=10)),
-            ("scaler", StandardScaler()),
+            ("scaler", RobustScaler()),
             ("classifier", DecisionTreeClassifier(random_state=42)),
         ]
     )
@@ -104,23 +135,19 @@ def train_decision_tree(X_train, X_test, y_train, y_test, all_features, output_d
     plt.savefig(os.path.join(output_dir, "dt_feature_importances.png"))
     plt.close()
 
-    # Visualize the decision tree (if not too large)
-    if dt_classifier.max_depth is not None and dt_classifier.max_depth <= 5:
-        plt.figure(figsize=(20, 10))
-        plot_tree(
-            dt_classifier,
-            feature_names=dt_selected_features,
-            class_names=[str(i) for i in dt_classifier.classes_],
-            filled=True,
-            rounded=True,
-        )
-        plt.title("Decision Tree Visualization")
-        plt.savefig(
-            os.path.join(output_dir, "decision_tree_visualization.png"),
-            dpi=300,
-            bbox_inches="tight",
-        )
-        plt.close()
+    # Plot decision tree
+    plt.figure(figsize=(20, 10))
+    plot_tree(
+        dt_classifier,
+        feature_names=dt_selected_features,
+        class_names=[str(i) for i in dt_classifier.classes_],
+        filled=True,
+        rounded=True,
+        fontsize=10,
+    )
+    plt.title("Decision Tree Visualization")
+    plt.savefig(os.path.join(output_dir, "dt_tree_visualization.png"))
+    plt.close()
 
     # Return results
     return {
@@ -128,4 +155,5 @@ def train_decision_tree(X_train, X_test, y_train, y_test, all_features, output_d
         "accuracy": dt_accuracy,
         "predictions": dt_y_pred,
         "feature_importances": dt_feature_importances,
+        "outlier_info": outlier_counts
     }

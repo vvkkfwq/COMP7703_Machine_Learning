@@ -5,12 +5,36 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.feature_selection import SelectKBest, f_classif
+from scipy import stats
 
+def detect_outliers(df, columns, threshold=3):
+    """
+    Detect outliers using Z-score method
+    
+    Parameters:
+    -----------
+    df : DataFrame
+        Input dataframe
+    columns : list
+        List of columns to check for outliers
+    threshold : float
+        Z-score threshold for outlier detection
+        
+    Returns:
+    --------
+    DataFrame
+        DataFrame with outliers marked
+    """
+    df_outliers = df.copy()
+    for col in columns:
+        z_scores = np.abs(stats.zscore(df[col]))
+        df_outliers[f'{col}_is_outlier'] = z_scores > threshold
+    return df_outliers
 
 def train_random_forest(X_train, X_test, y_train, y_test, all_features, output_dir):
     """
@@ -38,11 +62,18 @@ def train_random_forest(X_train, X_test, y_train, y_test, all_features, output_d
     """
     print("\n=== Training Random Forest Classifier ===")
 
-    # Create a pipeline with feature selection, scaling, and classifier
+    # Detect outliers in training data
+    print("\nDetecting outliers in training data...")
+    X_train_outliers = detect_outliers(X_train, all_features)
+    outlier_counts = X_train_outliers[[f'{col}_is_outlier' for col in all_features]].sum()
+    print("\nOutlier counts per feature:")
+    print(outlier_counts)
+
+    # Create a pipeline with feature selection, robust scaling, and classifier
     rf_pipeline = Pipeline(
         [
             ("feature_selection", SelectKBest(f_classif, k=10)),
-            ("scaler", StandardScaler()),
+            ("scaler", RobustScaler()),
             ("classifier", RandomForestClassifier(random_state=42)),
         ]
     )
@@ -109,4 +140,5 @@ def train_random_forest(X_train, X_test, y_train, y_test, all_features, output_d
         "accuracy": rf_accuracy,
         "predictions": rf_y_pred,
         "feature_importances": rf_feature_importances,
+        "outlier_info": outlier_counts
     }

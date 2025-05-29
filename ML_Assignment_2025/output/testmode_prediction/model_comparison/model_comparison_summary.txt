@@ -1,23 +1,23 @@
 === TTSWING 模型比较总结 ===
 
 == 模型准确率 ==
-Random Forest: 0.9718
+Random Forest: 0.9717
 Decision Tree: 0.9635
 Logistic Regression: 0.9309
 
 == 模型预测一致性 ==
 随机森林和决策树一致性: 98.39%
-随机森林和逻辑回归一致性: 94.01%
+随机森林和逻辑回归一致性: 94.00%
 决策树和逻辑回归一致性: 93.45%
 所有模型一致: 92.99%
 
 == 关键特征 ==
 随机森林顶级特征:
-  g_entropy: 0.1793
-  a_entropy: 0.1770
-  a_min: 0.1261
+  g_entropy: 0.1792
+  a_entropy: 0.1772
+  a_min: 0.1258
   a_mean: 0.0940
-  g_mean: 0.0675
+  g_mean: 0.0676
 
 决策树顶级特征:
   g_entropy: 0.4291
@@ -27,33 +27,33 @@ Logistic Regression: 0.9309
   a_mean: 0.0380
 
 逻辑回归顶级特征:
-  a_mean: 2.8572
-  gz_var: 1.6434
-  ax_rms: 1.6123
-  gz_rms: 1.5039
-  a_min: 1.3768
+  a_mean: 1.7632
+  ax_rms: 1.4324
+  gz_var: 1.3927
+  gz_rms: 1.2939
+  az_rms: 1.2636
 
 
 === TTSWING Model Comparison Summary ===
 
 == Model Accuracy ==
-Random Forest: 0.9718
+Random Forest: 0.9717
 Decision Tree: 0.9635
 Logistic Regression: 0.9309
 
 == Model Prediction Agreement ==
 Random Forest and Decision Tree agreement: 98.39%
-Random Forest and Logistic Regression agreement: 94.01%
+Random Forest and Logistic Regression agreement: 94.00%
 Decision Tree and Logistic Regression agreement: 93.45%
 All models agree: 92.99%
 
 == Key Features ==
 Random Forest top features:
-  g_entropy: 0.1793
-  a_entropy: 0.1770
-  a_min: 0.1261
+  g_entropy: 0.1792
+  a_entropy: 0.1772
+  a_min: 0.1258
   a_mean: 0.0940
-  g_mean: 0.0675
+  g_mean: 0.0676
 
 Decision Tree top features:
   g_entropy: 0.4291
@@ -63,11 +63,11 @@ Decision Tree top features:
   a_mean: 0.0380
 
 Logistic Regression top features:
-  a_mean: 2.8572
-  gz_var: 1.6434
-  ax_rms: 1.6123
-  gz_rms: 1.5039
-  a_min: 1.3768
+  a_mean: 1.7632
+  ax_rms: 1.4324
+  gz_var: 1.3927
+  gz_rms: 1.2939
+  az_rms: 1.2636
 
 
 == Conclusion ==
