@@ -28,7 +28,7 @@ sns.heatmap(test_mode_stage, annot=True, cmap="YlGnBu", fmt="d")
 plt.title("Relationship Between Test Mode and Test Stage")
 plt.xlabel("Test Stage")
 plt.ylabel("Test Mode")
-plt.savefig("./output/testmode_teststage_heatmap.png")
+plt.savefig("./output/general_analysis/testmode_teststage_heatmap.png")
 plt.close()
 
 # Analyze gender and other features
@@ -50,7 +50,7 @@ plt.subplot(2, 2, 4)
 sns.boxplot(x="gender", y="g_entropy", data=df)
 plt.title("Relationship Between Gender and Gyroscope Entropy")
 plt.tight_layout()
-plt.savefig("./output/gender_sensor_features.png")
+plt.savefig("./output/general_analysis/gender_sensor_features.png")
 plt.close()
 
 # Detailed analysis of test mode and stage
@@ -98,7 +98,7 @@ ax.set_theta_direction(-1)
 plt.xticks(angles[:-1], features)
 ax.set_title("Sensor Reading Features Comparison Across Test Modes", fontsize=15)
 plt.legend(loc="upper right")
-plt.savefig("./output/testmode_radar_chart.png")
+plt.savefig("./output/general_analysis/testmode_radar_chart.png")
 plt.close()
 
 # Use PCA for dimensionality reduction
@@ -182,7 +182,7 @@ plt.title(
 )
 
 plt.tight_layout()
-plt.savefig("./output/pca_analysis.png")
+plt.savefig("./output/general_analysis/pca_analysis.png")
 plt.close()
 
 # Sample data for visualization
@@ -206,7 +206,7 @@ plt.xlabel("X-axis Acceleration Mean")
 plt.ylabel("Y-axis Acceleration Mean")
 plt.legend(title="ID", bbox_to_anchor=(1.05, 1), loc="upper left")
 plt.tight_layout()
-plt.savefig("./output/id_sensor_readings.png")
+plt.savefig("./output/general_analysis/id_sensor_readings.png")
 plt.close()
 
 print("\nAnalysis complete, all charts saved to output directory.")
